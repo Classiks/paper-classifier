@@ -2,12 +2,8 @@ import { Button } from "@/components/ui/button";
 import { usePaperStore } from "@/lib/store";
 import { 
     CodingResult, 
-    DesignEnum, 
-    EducationalLevelEnum, 
-    IncludeEnum, 
     ReasonDetail, 
     ReasonGroupEnum,
-    ReasonClarificationEnum 
 } from "@/lib/api";
 import { Info } from "lucide-react";
 import { useRef, useState } from "react";

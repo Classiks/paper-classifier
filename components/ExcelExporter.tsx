@@ -1,7 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { usePaperStore } from "@/lib/store";
-import { CodingResult } from "@/lib/api";
-import { Paper } from "@/lib/store";
 import { Download } from "lucide-react";
 import writeXlsxFile from "write-excel-file";
 
@@ -14,9 +12,9 @@ const formatReason = (group: string, clarification?: string): string => {
 };
 
 // Format reasons array to comma-separated string
-const formatReasons = (reasons?: Array<{group: string, clarification?: string}>): string => {
+const formatReasons = (reasons?: Array<{group?: string, clarification?: string}>): string => {
     if (!reasons || reasons.length === 0) return "";
-    return reasons.map(reason => formatReason(reason.group, reason.clarification)).join(", ");
+    return reasons.map(reason => reason.group ? formatReason(reason.group, reason.clarification) : "").filter(Boolean).join(", ");
 };
 
 // Format array to comma-separated string
@@ -115,7 +113,7 @@ export function ExcelExporter() {
         const data = [headerRow, ...dataRows];
 
         try {
-            // @ts-ignore
+            // @ts-expect-error: works (shrug)
             await writeXlsxFile(data, {
                 columns,
                 fileName: 'paper-classification-results.xlsx',
